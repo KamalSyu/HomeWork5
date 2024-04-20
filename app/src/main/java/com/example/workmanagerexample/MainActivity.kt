@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
@@ -25,13 +26,15 @@ class MainActivity : AppCompatActivity() {
                 .setRequiredNetworkType(NetworkType.UNMETERED)
                 .build()
 
-            val myWorkRequest: WorkRequest =
+            val myWorkRequest: OneTimeWorkRequest =
                 OneTimeWorkRequestBuilder<MyWorker>()
                     .setConstraints(constraints)
                     .build()
 
             WorkManager.getInstance(this)
-                .enqueue(myWorkRequest)
+                .enqueueUniqueWork("unique work",
+                    ExistingWorkPolicy.KEEP,
+                    myWorkRequest)
         }
     }
 }
