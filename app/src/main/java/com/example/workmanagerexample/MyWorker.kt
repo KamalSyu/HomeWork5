@@ -1,7 +1,6 @@
 package com.example.workmanagerexample
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.work.CoroutineWorker
 import androidx.work.Data
